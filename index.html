@@ -3,7 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BuyVera Shop - Ecommerce</title>
+  <title>BuyVera Shop - Online Fashion & Accessories Store</title>
+  <link rel="shortcut icon" href="./E-Commerce-Logo-Design-PNG.png" type="image/x-icon">
+  <meta name="description" content="Shop the latest fashion, shoes, clothing, and accessories at BuyVera Shop. Discover quality products for men, women, and kids with fast shipping and great prices.">
+  <meta name="keywords" content="BuyVera Shop, fashion, clothing, shoes, accessories, men, women, kids, online shopping, e-commerce">
+  <meta name="author" content="BuyVera Shop">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://buyverashop.vercel.app/">
+
+  <!-- Open Graph Tags for Social Media -->
+  <meta property="og:title" content="BuyVera Shop - Online Fashion & Accessories Store">
+  <meta property="og:description" content="Explore trendy shoes, clothing, and accessories for men, women, and kids at BuyVera Shop. Shop now for quality products and fast delivery!">
+  <meta property="og:image" content="https://buyverashop.vercel.app/E-Commerce-Logo-Design-PNG.png">
+  <meta property="og:url" content="https://buyverashop.vercel.app/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BuyVera Shop - Online Fashion & Accessories Store">
+  <meta name="twitter:description" content="Shop the latest fashion collections at BuyVera Shop. Find shoes, clothing, and accessories for all ages.">
+  <meta name="twitter:image" content="https://buyverashop.vercel.appE-Commerce-Logo-Design-PNG.png">
+
+  <!-- Structured Data (JSON-LD) for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "BuyVera Shop",
+    "url": "https://buyverashop.vercel.app/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://buyverashop.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://buyverashop.vercel.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Men",
+        "item": "https://buyverashop.vercel.app/mens.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Women",
+        "item": "https://buyverashop.vercel.app/women.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Kids",
+        "item": "https://buyverashop.vercel.app/kids.html"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "BuyVera Shop Collection",
+    "description": "Explore our collection of fashion products including shoes, clothing, and accessories for men, women, and kids.",
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "20",
+      "highPrice": "90",
+      "priceCurrency": "USD",
+      "offerCount": 10
+    },
+    "image": "https://buyverashop.vercel.app/1.jpg",
+    "brand": {
+      "@type": "Brand",
+      "name": "BuyVera Shop"
+    }
+  }
+  </script>
+
   <style>
     /* Reset default margins and ensure box-sizing for consistent layout */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -129,6 +216,7 @@
     }
 
     /* Cart counter badge */
+    
     .nav-cart-counter {
       position: absolute;
       top: -10px;
@@ -498,39 +586,39 @@
   <!-- Navigation bar with logo, menu, and cart icon -->
   <div class="navbar">
     <div class="nav-log">
-      <img src="E-Commerce-Logo-Design-PNG.png" alt="Shopper Logo" aria-label="Shopper Logo"/>
-      <p>BuyVera Shop</p>
+      <img src="E-Commerce-Logo-Design-PNG.png" alt="BuyVera Shop Logo" aria-label="BuyVera Shop Logo"/>
+      <h1>BuyVera Shop</h1>
     </div>
     <ul class="nav-menu">
-      <a href="mens.html" style="text-decoration: none;"><li>Men</li></a>
-      <a href="women.html" style="text-decoration: none;"><li>Women</li></a>
-      <a href="kids.html" style="text-decoration: none;"><li>Kids</li></a>
+      <li><a href="mens.html" style="text-decoration: none;">Men</a></li>
+      <li><a href="women.html" style="text-decoration: none;">Women</a></li>
+      <li><a href="kids.html" style="text-decoration: none;">Kids</a></li>
     </ul>
     <div class="nav-login-cart">
       <button aria-label="Help">Help</button>
       <p style="font-size: 20px; color: white; margin: 0 10px;">Cart</p>
-      <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Cart Icon" id="cart-icon" aria-label="Cart"/>
+      <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Shopping Cart Icon" id="cart-icon" aria-label="Cart"/>
       <div class="nav-cart-counter" id="cart-counter">0</div>
     </div>
   </div>
 
   <!-- Hero section with single promotional image -->
   <div class="hero-section">
-    <p><b>Discover not only fashion but also essential items you need in your life.</b></p>
+    <p><b>Discover trendy fashion and essential accessories at BuyVera Shop.</b></p>
     <div class="hero-image-container">
-      <img src="1.jpg" alt="Fashion Collection" class="hero-image">
+      <img src="1.jpg" alt="New Fashion Collection 2025" class="hero-image">
       <div class="hero-image-content">
         <h2>New Arrivals</h2>
-        <p>Discover our latest fashion collection for the season</p>
+        <p>Explore our latest fashion collection for men, women, and kids.</p>
       </div>
     </div>
-    <p class="hero-text">Explore our collection of shoes, clothing, and accessories.</p>
+    <p class="hero-text">Shop premium shoes, clothing, and accessories online.</p>
   </div>
 
   <!-- Search bar (placeholder for future functionality) -->
   <div class="search-container">
     <div class="search-bar">
-      <input type="text" placeholder="Search for products..." aria-label="Search products">
+      <input type="text" placeholder="Search for fashion products..." aria-label="Search fashion products">
       <button type="submit">Search</button>
     </div>
   </div>
@@ -538,93 +626,93 @@
   <!-- Product grid with product cards -->
   <div class="main-body" id="product-list">
     <div class="product-card">
-      <img src="1.jpg" alt="Women Shoes"/>
+      <img src="1.jpg" alt="Women's Fashion Shoes"/>
       <div class="product-info">
-        <h3>Women Shoes</h3>
-        <p>The best women shoes</p>
+        <h3>Women's Shoes</h3>
+        <p>Stylish and comfortable shoes for women</p>
         <div class="price">$20</div>
-        <button aria-label="Add Women Shoes to Cart">Add to Cart</button>
+        <button aria-label="Add Women's Shoes to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="sh1.webp" alt="Goldas"/>
+      <img src="sh1.webp" alt="Goldas Unisex Sneakers"/>
       <div class="product-info">
         <h3>Goldas</h3>
-        <p>This is for both women and men</p>
+        <p>Unisex sneakers for men and women</p>
         <div class="price">$45</div>
-        <button aria-label="Add Goldas to Cart">Add to Cart</button>
+        <button aria-label="Add Goldas Sneakers to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="sh2.webp" alt="Chong"/>
+      <img src="sh2.webp" alt="Chong Men's Casual Shoes"/>
       <div class="product-info">
         <h3>Chong</h3>
-        <p>This is for men</p>
+        <p>Trendy casual shoes for men</p>
         <div class="price">$30</div>
-        <button aria-label="Add Chong to Cart">Add to Cart</button>
+        <button aria-label="Add Chong Men's Shoes to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="sh4.webp" alt="Spules"/>
+      <img src="sh4.webp" alt="Spules Kids' Sneakers"/>
       <div class="product-info">
         <h3>Spules</h3>
-        <p>For boys and kids</p>
+        <p>Durable sneakers for boys and kids</p>
         <div class="price">$60</div>
-        <button aria-label="Add Spules to Cart">Add to Cart</button>
+        <button aria-label="Add Spules Kids' Sneakers to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="sh3.jpg" alt="Highles"/>
+      <img src="sh3.jpg" alt="Highles Women's Heels"/>
       <div class="product-info">
         <h3>Highles</h3>
-        <p>This is for girls and women</p>
+        <p>Elegant heels for girls and women</p>
         <div class="price">$50</div>
-        <button aria-label="Add Highles to Cart">Add to Cart</button>
+        <button aria-label="Add Highles Women's Heels to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="shirts1.jpg" alt="Shirt"/>
+      <img src="shirts1.jpg" alt="Unisex Casual Shirt"/>
       <div class="product-info">
         <h3>Shirt</h3>
-        <p>Girls and boys</p>
+        <p>Comfortable shirts for girls and boys</p>
         <div class="price">$40</div>
-        <button aria-label="Add Shirt to Cart">Add to Cart</button>
+        <button aria-label="Add Unisex Shirt to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="c3.jpg" alt="Dress"/>
+      <img src="c3.jpg" alt="Women's Elegant Dress"/>
       <div class="product-info">
         <h3>Dress</h3>
-        <p>For women and girls</p>
+        <p>Stylish dresses for women and girls</p>
         <div class="price">$55</div>
-        <button aria-label="Add Dress to Cart">Add to Cart</button>
+        <button aria-label="Add Women's Dress to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="c4.jpg" alt="Sun Glasses"/>
+      <img src="c4.jpg" alt="Unisex Sunglasses"/>
       <div class="product-info">
         <h3>Sun Glasses</h3>
-        <p>For all people</p>
+        <p>Fashionable sunglasses for all</p>
         <div class="price">$75</div>
-        <button aria-label="Add Sun Glasses to Cart">Add to Cart</button>
+        <button aria-label="Add Sunglasses to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="a1.jpg" alt="Table Covers"/>
+      <img src="a1.jpg" alt="Table Covers for Hotels"/>
       <div class="product-info">
         <h3>Table Covers</h3>
-        <p>For hotels and restaurants</p>
+        <p>Elegant table covers for hotels and restaurants</p>
         <div class="price">$90</div>
         <button aria-label="Add Table Covers to Cart">Add to Cart</button>
       </div>
     </div>
     <div class="product-card">
-      <img src="g9.jpg" alt="Vest"/>
+      <img src="g9.jpg" alt="Women's Fashion Vest"/>
       <div class="product-info">
         <h3>Vest</h3>
-        <p>Women and girls</p>
+        <p>Trendy vests for women and girls</p>
         <div class="price">$35</div>
-        <button aria-label="Add Vest to Cart">Add to Cart</button>
+        <button aria-label="Add Women's Vest to Cart">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -638,9 +726,9 @@
 
   <!-- Footer with contact and navigation links -->
   <footer>
-    <p>© 2025 Shopper. All rights reserved.</p>
-    <p>Contact us at support@shopper.com</p>
-    <p><a href="#">back to the top</a></p>
+    <p>© 2025 BuyVera Shop. All rights reserved.</p>
+    <p>Contact us at <a href="mailto:support@buyverashop.com">support@buyverashop.com</a></p>
+    <p><a href="#">Back to Top</a> | <a href="mens.html">Men</a> | <a href="women.html">Women</a> | <a href="kids.html">Kids</a></p>
   </footer>
 
   <script>
