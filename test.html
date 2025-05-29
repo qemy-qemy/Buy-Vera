@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMart - E-commerce Website</title>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        h1 a {
+            color: #1a2a44;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid #ccc;
+            border-radius: 10px 0 0 4px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #1a2a44;
+            color: #fff;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #2c3e50;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #1a2a44;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff0000;
+        }
+
+        .user-actions a {
+            color: #1a2a44;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .user-actions a:hover {
+            color: #ff0000;
+        }
+
+        .content-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            gap: 20px;
+        }
+
+        .main-content {
+            flex: 3;
+            padding: 0 20px;
+        }
+
+        .main-banner {
+            background: linear-gradient(to bottom, #1a2a44, #2c3e50);
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .banner-slide {
+            display: none;
+        }
+
+        .banner-slide.active {
+            display: block;
+        }
+
+        .banner-content h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .banner-content p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #cc0000;
+        }
+
+        .navigation-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navigation-dots span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+        .navigation-dots span.active {
+            background-color: #fff;
+        }
+
+        .promotions {
+            display: flex;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .weekly-deals, .explore-deals {
+            flex: 1;
+            background-color: #fff;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .product-card, .category {
+            margin: 15px 0;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover, .category:hover {
+            transform: scale(1.03);
+        }
+
+        .product-card img, .category img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .product-card h4, .category h4 {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .product-card p, .category p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .product-card p del {
+            color: #999;
+            margin-right: 5px;
+        }
+
+        .review-stars i {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        .badge {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 12px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .featured-products h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            height: 10rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .winter-collection {
+            background: linear-gradient(to bottom, #1a2a44, #2c3e50);
+            color: #fff;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .winter-collection img {
+            width: 250px;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .weekly-top-sellers, .top-brand-limited, .coupons {
+            background-color: #fff;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .brand-logos {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .brand-logos img {
+            width: 60px;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .brand-logos img:hover {
+            transform: scale(1.1);
+        }
+
+        .coupons {
+            background: linear-gradient(to bottom, #1a2a44, #2c3e50);
+            color: #fff;
+            text-align: center;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: #fff;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            height: 19rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar ul li a {
+            color: #1a2a44;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #ff0000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-bar {
+                margin: 10px 0;
+                width: 100%;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                margin: 10px 0;
+            }
+
+            .user-actions a {
+                margin: 0 10px;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .main-content, .sidebar {
+                padding: 15px;
+            }
+
+            .promotions {
+                flex-direction: column;
+            }
+
+            .main-banner {
+                padding: 40px 15px;
+            }
+
+            .banner-content h2 {
+                font-size: 28px;
+            }
+
+            .banner-content p {
+                font-size: 16px;
+            }
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="#">NexMart</a></h1>
+            <form class="search-bar">
+                <input type="text" placeholder="Search in Product">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <nav>
+                <ul>
+                    <li><a href="#">Browse Categories</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Brands</a></li>
+                    <li><a href="#">Vendor</a></li>
+                    <li><a href="#">Pages</a></li>
+                    <li><a href="#">Customer</a></li>
+                    <li><a href="#">Special Offer</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="#"><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count">0</span>)</a>
+                <a href="#"><i class="fas fa-heart"></i> Favorites</a>
+                <a href="#"><i class="fas fa-user"></i> Login/Sign up</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <main class="main-content">
+            <section class="main-banner">
+                <div class="banner-slide active">
+                    <div class="banner-content">
+                        <h2>Best Gadget & Gear Best Summer Collection</h2>
+                        <p>There are many variations of passages available, majority have suffered alteration.</p>
+                        <button>See All Products</button>
+                    </div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-content">
+                        <h2>Exclusive Winter Deals</h2>
+                        <p>Save big on winter essentials. Limited time offer!</p>
+                        <button>Shop Now</button>
+                    </div>
+                </div>
+                <div class="banner-slide">
+                    <div class="banner-content">
+                        <h2>New Arrivals</h2>
+                        <p>Check out the latest products in our store.</p>
+                        <button>Explore</button>
+                    </div>
+                </div>
+                <div class="navigation-dots">
+                    <span class="active" data-slide="0"></span>
+                    <span data-slide="1"></span>
+                    <span data-slide="2"></span>
+                </div>
+            </section>
+
+            <div class="promotions">
+                <div class="weekly-deals">
+                    <h3>Weekly Best Deals</h3>
+                    <p>Save Up to 70%</p>
+                    <div class="product-card">
+                        <img src="1.jpg" alt="Product 1">
+                        <h4>Amazfit GTS 2 Smart Watch</h4>
+                        <p><del>$150.00</del> $130.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Amazfit GTS 2 Smart Watch">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="2.jpg" alt="Product 2">
+                        <h4>Wireless Headphones</h4>
+                        <p><del>$100.00</del> $85.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Wireless Headphones">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="3.jpg" alt="Product 3">
+                        <h4>Smart Speaker</h4>
+                        <p><del>$80.00</del> $65.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Smart Speaker">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="4.jpg" alt="Product 4">
+                        <h4>Gaming Laptop</h4>
+                        <p><del>$1200.00</del> $1000.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Gaming Laptop">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="5.jpg" alt="Product 5">
+                        <h4>Smart TV</h4>
+                        <p><del>$800.00</del> $700.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Smart TV">Add to Cart</button>
+                    </div>
+                    <button>Shop Now</button>
+                </div>
+                <div class="explore-deals">
+                    <h3>Explore by Best Deals</h3>
+                    <div class="category" style="position: relative;">
+                        <img src="2.jpg" alt="Gaming Monitor">
+                        <h4>Gaming Monitor</h4>
+                        <p>$130.00</p>
+                        <span class="badge">2</span>
+                    </div>
+                    <div class="category" style="position: relative;">
+                        <img src="category2.jpg" alt="Smart Watch">
+                        <h4>Smart Watch</h4>
+                        <p>$150.00</p>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="category" style="position: relative;">
+                        <img src="category3.jpg" alt="Headphones">
+                        <h4>Headphones</h4>
+                        <p>$80.00</p>
+                        <span class="badge">1</span>
+                    </div>
+                    <div class="category" style="position: relative;">
+                        <img src="category4.jpg" alt="Tablets">
+                        <h4>Tablets</h4>
+                        <p>$200.00</p>
+                        <span class="badge">4</span>
+                    </div>
+                    <div class="category" style="position: relative;">
+                        <img src="category5.jpg" alt="Cameras">
+                        <h4>Cameras</h4>
+                        <p>$500.00</p>
+                        <span class="badge">2</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="featured-products">
+                <h2>Featured Products</h2>
+                <p>This facilitates the word-of-mouth marketing makes.</p>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="3.jpg" alt="Product 2">
+                        <h4>Jeecmika 1 Carat Round Cut</h4>
+                        <p><del>$150.00</del> $130.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Jeecmika 1 Carat Round Cut">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="product4.jpg" alt="Product 4">
+                        <h4>Bluetooth Earbuds</h4>
+                        <p><del>$70.00</del> $60.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Bluetooth Earbuds">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="product5.jpg" alt="Product 5">
+                        <h4>Fitness Tracker</h4>
+                        <p><del>$90.00</del> $80.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Fitness Tracker">Add to Cart</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="product6.jpg" alt="Product 6">
+                        <h4>Wireless Mouse</h4>
+                        <p><del>$30.00</del> $25.00</p>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <button class="add-to-cart" data-product="Wireless Mouse">Add to Cart</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="winter-collection">
+                <div class="collection-content">
+                    <h2>Winter 20% Happy Children Collection</h2>
+                    <p>Explore our cozy winter gear for kids.</p>
+                    <img src="4.jpg" alt="Children">
+                    <button>Shop Now</button>
+                </div>
+            </section>
+
+            <div class="weekly-top-sellers">
+                <h3>Weekly Top Sellers</h3>
+                <div class="brand-logos">
+                    <img src="5.jpg" alt="Lenovo">
+                    <img src="a1.jpg" alt="Samsung">
+                    <img src="sony.jpg" alt="Sony">
+                </div>
+            </div>
+
+            <div class="top-brand-limited">
+                <h3>Top Brand Limited</h3>
+                <div class="brand-logos">
+                    <img src="apple.jpg" alt="Apple">
+                    <img src="adidas.jpg" alt="Adidas">
+                    <img src="samsung.jpg" alt="Samsung">
+                </div>
+            </div>
+
+            <div class="coupons">
+                <h3>Save Up to 50% with Our Coupons</h3>
+                <p>Use code: NEXMART50 at checkout!</p>
+            </div>
+        </main>
+
+        <aside class="sidebar" style="background-color: transparent;">
+            <h3>Featured Categories</h3>
+            <ul>
+                <li><a href="#">Home Appliances</a> <span class="badge">5</span></li>
+                <li><a href="#">Men’s Fashion</a> <span class="badge">3</span></li>
+                <li><a href="#">Women’s Fashion</a> <span class="badge">4</span></li>
+                <li><a href="#">Electronics</a> <span class="badge">6</span></li>
+                <li><a href="#">Kids’ Toys</a> <span class="badge">2</span></li>
+            </ul>
+        </aside>
+    </div>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.getAttribute('data-product');
+                cart.push(product);
+                document.getElementById('cart-count').textContent = cart.length;
+                alert(`${product} added to cart!`);
+            });
+        });
+
+        // Carousel functionality
+        const slides = document.querySelectorAll('.banner-slide');
+        const dots = document.querySelectorAll('.navigation-dots span');
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideIndex = dot.getAttribute('data-slide');
+                slides.forEach((slide, index) => {
+                    if (index == slideIndex) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

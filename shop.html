@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuyVera Shop - Ecommerce</title>
+  <style>
+    /* Reset default margins and ensure box-sizing for consistent layout */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Ensure full height for body and html to support sticky footer */
+    body, html {
+      height: 100%;
+    }
+
+    /* Main body styling with flex for sticky footer and top padding for fixed navbar */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0ec;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    /* Navbar styling with fixed position and gradient background */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 32px;
+      box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, rgb(255, 251, 245), rgb(80, 78, 74));
+      backdrop-filter: blur(20px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    /* Logo container with image and text */
+    .nav-log {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-log img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-log p {
+      color: rgb(99, 89, 85);
+      font-size: 32px;
+      font-weight: 600;
+    }
+
+    /* Navigation menu styling */
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 50px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .nav-menu li {
+      position: relative;
+      cursor: pointer;
+      color: #4f1803;
+    }
+
+    /* Underline effect on hover for menu items */
+    .nav-menu li::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 3px;
+      background: rgb(89, 46, 5);
+      border-radius: 10px;
+      transition: width 0.6s ease;
+    }
+
+    .nav-menu li:hover::after {
+      width: 100%;
+    }
+
+    /* Cart and help button container */
+    .nav-login-cart {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    .nav-login-cart button {
+      width: 120px;
+      height: 48px;
+      border: 1px solid #f7cfb3;
+      border-radius: 75px;
+      color: #60605d;
+      font-size: 18px;
+      font-weight: 500;
+      background-color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-login-cart button:hover {
+      background: #f7cfb3;
+      color: #4f1803;
+    }
+
+    .nav-login-cart button:active {
+      background: #4f1803;
+      color: white;
+    }
+
+    /* Cart icon styling */
+    .nav-login-cart img {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    /* Cart counter badge */
+    .nav-cart-counter {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-size: 14px;
+      background: red;
+      color: white;
+    }
+
+    /* Hero section for promotional content */
+    .hero-section {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-section p {
+      font-size: 24px;
+      color: #41231c;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin-bottom: 10px;
+    }
+
+    /* Gradient text for hero section */
+    .hero-text {
+      font-size: 28px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      background-image: linear-gradient(90deg, rgb(255, 60, 0), rgb(30, 30, 30), rgb(236, 183, 130), rgb(255, 85, 0));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 20px 0;
+    }
+
+    /* Hero image container */
+    .hero-image-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Text overlay on hero image */
+    .hero-image-content {
+      position: absolute;
+      bottom: 50px;
+      left: 50px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+    }
+
+    .hero-image-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-image-content p {
+      font-size: 1.2rem;
+    }
+
+    /* Search bar container */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .search-bar {
+      display: flex;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 12px 20px;
+      border: 2px solid #ddd;
+      border-radius: 30px 0 0 30px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-bar input:focus {
+      border-color: #8e5a38;
+    }
+
+    .search-bar button {
+      padding: 12px 20px;
+      background-color: #8e5a38;
+      color: white;
+      border: none;
+      border-radius: 0 30px 30px 0;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .search-bar button:hover {
+      background-color: #7a3c11;
+    }
+
+    /* Product grid layout */
+    .main-body {
+      padding: 40px 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      flex: 1;
+    }
+
+    /* Product card styling with hover effects */
+    .product-card {
+      background: linear-gradient(145deg, #ffffff, #f6f6f3);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+      background: linear-gradient(45deg, rgb(210, 154, 81), rgb(212, 212, 212));
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-info h3 {
+      font-size: 22px;
+      color: #4f2c1c;
+      margin-bottom: 8px;
+    }
+
+    .product-info p {
+      font-size: 15px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    .product-info .price {
+      font-weight: bold;
+      font-size: 18px;
+      color: #5d2f0d;
+      margin-bottom: 12px;
+    }
+
+    .product-info button {
+      padding: 12px;
+      border: none;
+      background-color: #5c2b06;
+      color: white;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .product-info button:hover {
+      background-color: #ecd8c3;
+      color: #5d2f0d;
+    }
+
+    /* Cart section styling (fixed sidebar) */
+    .cart-section {
+      padding: 20px;
+      border-radius: 10px;
+      border-top: 5px solid #7b452b;
+      display: none;
+      background: #ffffff;
+      color: #333;
+      position: fixed;
+      right: 20px;
+      top: 90px;
+      width: 350px;
+      max-height: 500px;
+      overflow-y: auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
+
+    .cart-section h2 {
+      color: #8e5a38;
+      margin-bottom: 15px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Cart item styling */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+
+    .cart-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 15px;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      font-size: 14px;
+    }
+
+    .cart-item-details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-right: 10px;
+    }
+
+    .cart-item-quantity button {
+      width: 25px;
+      height: 25px;
+      border: none;
+      background: #5c2b06;
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 25px;
+    }
+
+    .cart-item-quantity button:hover {
+      background: #7a3c11;
+    }
+
+    .cart-item-remove {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .cart-item-remove:hover {
+      background: #cc0000;
+    }
+
+    .cart-total {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #8e5a38;
+      text-align: right;
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: #8e8f85;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: lightgray;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 10px 20px;
+      }
+
+      .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+        margin: 10px 0;
+      }
+
+      .nav-login-cart {
+        gap: 10px;
+      }
+
+      .cart-section {
+        width: 90%;
+        right: 5%;
+      }
+
+      .hero-section p {
+        font-size: 18px;
+      }
+
+      .hero-text {
+        font-size: 20px;
+      }
+
+      .hero-image-container {
+        height: 300px;
+      }
+
+      .hero-image-content {
+        bottom: 20px;
+        left: 20px;
+        padding: 10px;
+        max-width: 80%;
+      }
+
+      .hero-image-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .hero-image-content p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar with logo, menu, and cart icon -->
+  <div class="navbar">
+    <div class="nav-log">
+      <img src="E-Commerce-Logo-Design-PNG.png" alt="Shopper Logo" aria-label="Shopper Logo"/>
+      <p>BuyVera Shop</p>
+    </div>
+    <ul class="nav-menu">
+      <a href="mens.html" style="text-decoration: none;"><li>Men</li></a>
+      <a href="women.html" style="text-decoration: none;"><li>Women</li></a>
+      <a href="kids.html" style="text-decoration: none;"><li>Kids</li></a>
+    </ul>
+    <div class="nav-login-cart">
+      <button aria-label="Help">Help</button>
+      <p style="font-size: 20px; color: white; margin: 0 10px;">Cart</p>
+      <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Cart Icon" id="cart-icon" aria-label="Cart"/>
+      <div class="nav-cart-counter" id="cart-counter">0</div>
+    </div>
+  </div>
+
+  <!-- Hero section with single promotional image -->
+  <div class="hero-section">
+    <p><b>Discover not only fashion but also essential items you need in your life.</b></p>
+    <div class="hero-image-container">
+      <img src="1.jpg" alt="Fashion Collection" class="hero-image">
+      <div class="hero-image-content">
+        <h2>New Arrivals</h2>
+        <p>Discover our latest fashion collection for the season</p>
+      </div>
+    </div>
+    <p class="hero-text">Explore our collection of shoes, clothing, and accessories.</p>
+  </div>
+
+  <!-- Search bar (placeholder for future functionality) -->
+  <div class="search-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search for products..." aria-label="Search products">
+      <button type="submit">Search</button>
+    </div>
+  </div>
+
+  <!-- Product grid with product cards -->
+  <div class="main-body" id="product-list">
+    <div class="product-card">
+      <img src="1.jpg" alt="Women Shoes"/>
+      <div class="product-info">
+        <h3>Women Shoes</h3>
+        <p>The best women shoes</p>
+        <div class="price">$20</div>
+        <button aria-label="Add Women Shoes to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="sh1.webp" alt="Goldas"/>
+      <div class="product-info">
+        <h3>Goldas</h3>
+        <p>This is for both women and men</p>
+        <div class="price">$45</div>
+        <button aria-label="Add Goldas to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="sh2.webp" alt="Chong"/>
+      <div class="product-info">
+        <h3>Chong</h3>
+        <p>This is for men</p>
+        <div class="price">$30</div>
+        <button aria-label="Add Chong to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="sh4.webp" alt="Spules"/>
+      <div class="product-info">
+        <h3>Spules</h3>
+        <p>For boys and kids</p>
+        <div class="price">$60</div>
+        <button aria-label="Add Spules to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="sh3.jpg" alt="Highles"/>
+      <div class="product-info">
+        <h3>Highles</h3>
+        <p>This is for girls and women</p>
+        <div class="price">$50</div>
+        <button aria-label="Add Highles to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="shirts1.jpg" alt="Shirt"/>
+      <div class="product-info">
+        <h3>Shirt</h3>
+        <p>Girls and boys</p>
+        <div class="price">$40</div>
+        <button aria-label="Add Shirt to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="c3.jpg" alt="Dress"/>
+      <div class="product-info">
+        <h3>Dress</h3>
+        <p>For women and girls</p>
+        <div class="price">$55</div>
+        <button aria-label="Add Dress to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="c4.jpg" alt="Sun Glasses"/>
+      <div class="product-info">
+        <h3>Sun Glasses</h3>
+        <p>For all people</p>
+        <div class="price">$75</div>
+        <button aria-label="Add Sun Glasses to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="a1.jpg" alt="Table Covers"/>
+      <div class="product-info">
+        <h3>Table Covers</h3>
+        <p>For hotels and restaurants</p>
+        <div class="price">$90</div>
+        <button aria-label="Add Table Covers to Cart">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="g9.jpg" alt="Vest"/>
+      <div class="product-info">
+        <h3>Vest</h3>
+        <p>Women and girls</p>
+        <div class="price">$35</div>
+        <button aria-label="Add Vest to Cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart section for displaying cart items -->
+  <div class="cart-section" id="cart-section">
+    <h2>🛒 Your Cart</h2>
+    <div id="cart-items"></div>
+    <div class="cart-total" id="cart-total">Total: $0</div>
+  </div>
+
+  <!-- Footer with contact and navigation links -->
+  <footer>
+    <p>© 2025 Shopper. All rights reserved.</p>
+    <p>Contact us at support@shopper.com</p>
+    <p><a href="#">back to the top</a></p>
+  </footer>
+
+  <script>
+    // Wait for the DOM to be fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get references to DOM elements
+      const productList = document.getElementById('product-list'); // Product grid
+      const cartIcon = document.getElementById('cart-icon'); // Cart icon in navbar
+      const cartSection = document.getElementById('cart-section'); // Cart sidebar
+      const cartItemsContainer = document.getElementById('cart-items'); // Container for cart items
+      const cartTotalElement = document.getElementById('cart-total'); // Total price display
+      const cartCounter = document.getElementById('cart-counter'); // Cart item counter
+
+      // Initialize cart state
+      let cart = []; // Array to store cart items
+      let cartTotal = 0; // Total price of all items
+      let itemCount = 0; // Total number of items (sum of quantities)
+
+      // Event listener for "Add to Cart" buttons
+      productList.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+          // Get the closest product card
+          const productCard = event.target.closest('.product-card');
+          // Extract product details
+          const productName = productCard.querySelector('h3').textContent;
+          const productPrice = parseFloat(productCard.querySelector('.price').textContent.slice(1));
+          const productImage = productCard.querySelector('img').src;
+          // Add item to cart
+          addToCart(productName, productPrice, productImage);
+        }
+      });
+
+      // Toggle cart section visibility when cart icon is clicked
+      cartIcon.addEventListener('click', () => {
+        cartSection.style.display = cartSection.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // Handle clicks in the cart section (quantity changes and remove)
+      cartItemsContainer.addEventListener('click', (event) => {
+        const name = event.target.dataset.name;
+        if (event.target.classList.contains('cart-item-remove')) {
+          removeFromCart(name); // Remove item
+        } else if (event.target.classList.contains('quantity-increase')) {
+          updateQuantity(name, 1); // Increase quantity
+        } else if (event.target.classList.contains('quantity-decrease')) {
+          updateQuantity(name, -1); // Decrease quantity
+        }
+      });
+
+      // Function to add an item to the cart
+      function addToCart(name, price, image) {
+        // Check if item already exists in cart
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+          // Increment quantity if item exists
+          existingItem.quantity += 1;
+        } else {
+          // Add new item to cart
+          cart.push({ name, price, image, quantity: 1 });
+        }
+        // Update total price and item count
+        cartTotal += price;
+        itemCount++;
+        // Refresh UI
+        updateCartDisplay();
+        updateItemCount();
+      }
+
+      // Function to remove an item from the cart
+      function removeFromCart(name) {
+        // Find item index
+        const itemIndex = cart.findIndex(item => item.name === name);
+        if (itemIndex !== -1) {
+          const item = cart[itemIndex];
+          // Subtract item total from cart total
+          cartTotal -= item.price * item.quantity;
+          // Subtract item quantity from item count
+          itemCount -= item.quantity;
+          // Remove item from cart
+          cart.splice(itemIndex, 1);
+          // Refresh UI
+          updateCartDisplay();
+          updateItemCount();
+        }
+      }
+
+      // Function to update item quantity
+      function updateQuantity(name, change) {
+        // Find item
+        const item = cart.find(item => item.name === name);
+        if (item) {
+          // Update quantity
+          item.quantity += change;
+          // Update total price and item count
+          cartTotal += item.price * change;
+          itemCount += change;
+          // Remove item if quantity is 0 or less
+          if (item.quantity <= 0) {
+            removeFromCart(name);
+          } else {
+            // Refresh UI
+            updateCartDisplay();
+            updateItemCount();
+          }
+        }
+      }
+
+      // Function to update the cart display
+      function updateCartDisplay() {
+        // Clear current cart items
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
+          // Show empty cart message
+          cartItemsContainer.innerHTML = '<p style="text-align: center; color: #888;">Your cart is empty.</p>';
+        } else {
+          // Create DOM elements for each cart item
+          cart.forEach(item => {
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.classList.add('cart-item');
+
+            // Add item image
+            const itemImage = document.createElement('img');
+            itemImage.src = item.image;
+            itemImage.alt = item.name;
+
+            // Add item details (name and total price)
+            const itemDetails = document.createElement('div');
+            itemDetails.classList.add('cart-item-details');
+            itemDetails.innerHTML = `
+              <span>${item.name}</span>
+              <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            `;
+
+            // Add quantity controls
+            const quantityDiv = document.createElement('div');
+            quantityDiv.classList.add('cart-item-quantity');
+            quantityDiv.innerHTML = `
+              <button class="quantity-decrease" data-name="${item.name}">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-increase" data-name="${item.name}">+</button>
+            `;
+
+            // Add remove button
+            const removeButton = document.createElement('button');
+            removeButton.classList.add('cart-item-remove');
+            removeButton.textContent = 'Remove';
+            removeButton.dataset.name = item.name;
+
+            // Append elements to cart item
+            cartItemDiv.appendChild(itemImage);
+            cartItemDiv.appendChild(itemDetails);
+            cartItemDiv.appendChild(quantityDiv);
+            cartItemDiv.appendChild(removeButton);
+            cartItemsContainer.appendChild(cartItemDiv);
+          });
+        }
+        // Update total price display
+        cartTotalElement.textContent = `Total: $${cartTotal.toFixed(2)}`;
+      }
+
+      // Function to update the cart counter in the navbar
+      function updateItemCount() {
+        cartCounter.textContent = itemCount;
+      }
+    });
+  </script>
+</body>
+</html>

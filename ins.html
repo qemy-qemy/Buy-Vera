@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstaClone - Share Your Moments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #262626;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 975px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Billabong', cursive;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 215px;
+        }
+
+        .search-bar input {
+            background-color: #efefef;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 10px 8px 30px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .search-bar::before {
+            content: "🔍";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 22px;
+        }
+
+        .nav-icons img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .profile-pic {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 935px;
+            margin: 80px auto 0;
+            display: flex;
+        }
+
+        /* Feed Section */
+        .feed {
+            flex: 2;
+            max-width: 614px;
+        }
+
+        /* Stories */
+        .stories {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .stories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .story-avatar {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .story-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        .story-username {
+            font-size: 12px;
+            margin-top: 5px;
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Posts */
+        .post {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+        }
+
+        .post-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .post-username {
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: auto;
+        }
+
+        .post-more {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 767px;
+            object-fit: cover;
+        }
+
+        .post-actions {
+            padding: 8px 16px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .post-actions img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .post-likes {
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .post-caption {
+            padding: 0 16px;
+            margin-bottom: 8px;
+        }
+
+        .post-caption-username {
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .post-comments {
+            padding: 0 16px;
+            color: #8e8e8e;
+            font-size: 14px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .post-time {
+            padding: 0 16px;
+            color: #8e8e8e;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .post-add-comment {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-top: 1px solid #efefef;
+        }
+
+        .post-add-comment input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .post-add-comment button {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.3;
+        }
+
+        .post-add-comment button.active {
+            opacity: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            max-width: 293px;
+            margin-left: 28px;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .user-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            margin-right: 16px;
+            object-fit: cover;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .name {
+            color: #8e8e8e;
+            font-size: 14px;
+        }
+
+        .switch {
+            color: #0095f6;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .suggestions-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .suggestions-title {
+            color: #8e8e8e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .see-all {
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .suggestion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .suggestion-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .suggestion-info {
+            flex: 1;
+        }
+
+        .suggestion-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .suggestion-status {
+            color: #8e8e8e;
+            font-size: 12px;
+        }
+
+        .follow {
+            color: #0095f6;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #c7c7c7;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .footer-link {
+            margin-right: 8px;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        /* Authentication Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 350px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .auth-switch {
+            padding: 20px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .auth-switch span {
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .auth-switch span.active {
+            border-bottom: 2px solid #0095f6;
+        }
+
+        .auth-form {
+            padding: 20px 40px;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            background-color: #fafafa;
+            font-size: 12px;
+        }
+
+        .auth-form button {
+            width: 100%;
+            padding: 8px;
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .auth-form button:disabled {
+            background-color: #b2dffc;
+            cursor: default;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            color: #8e8e8e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dbdbdb;
+            margin: 0 10px;
+        }
+
+        .facebook-login {
+            color: #385185;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #00376b;
+            font-size: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .signup-text {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .signup-link {
+            color: #0095f6;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .app-download {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .app-stores {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .app-store {
+            height: 40px;
+            cursor: pointer;
+        }
+
+        /* Messages Modal */
+        .messages-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .messages-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 100%;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages-header {
+            padding: 15px;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .messages-title {
+            font-weight: 600;
+        }
+
+        .close-messages {
+            cursor: pointer;
+        }
+
+        .messages-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .message-item:hover {
+            background-color: #fafafa;
+        }
+
+        .message-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .message-info {
+            flex: 1;
+        }
+
+        .message-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .message-preview {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .message-time {
+            color: #8e8e8e;
+            font-size: 10px;
+        }
+
+        /* Chat Modal */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 500px;
+            max-width: 100%;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-back {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .chat-username {
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .chat-options {
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .received {
+            align-self: flex-start;
+            background-color: #efefef;
+            border-top-left-radius: 4px;
+        }
+
+        .sent {
+            align-self: flex-end;
+            background-color: #0095f6;
+            color: white;
+            border-top-right-radius: 4px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #dbdbdb;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #dbdbdb;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-send {
+            margin-left: 10px;
+            color: #0095f6;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Feedback Modal */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feedback-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 100%;
+            padding: 20px;
+        }
+
+        .feedback-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .feedback-form textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            resize: none;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .feedback-cancel,
+        .feedback-submit {
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .feedback-cancel {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+        }
+
+        .feedback-submit {
+            background-color: #0095f6;
+            color: white;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 935px) {
+            .main-container {
+                max-width: 614px;
+            }
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 614px) {
+            .main-container {
+                width: 100%;
+                margin-top: 60px;
+            }
+            .search-bar {
+                display: none;
+            }
+            .stories {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            .post {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">InstaClone</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="nav-icons">
+                <img src="https://img.icons8.com/ios/50/000000/home--v1.png" alt="Home">
+                <img src="https://img.icons8.com/ios/50/000000/facebook-messenger.png" alt="Messages" id="messages-icon">
+                <img src="https://img.icons8.com/ios/50/000000/plus-squared.png" alt="Add">
+                <img src="https://img.icons8.com/ios/50/000000/compass.png" alt="Explore">
+                <img src="https://img.icons8.com/ios/50/000000/hearts.png" alt="Activity">
+                <img src="https://img.icons8.com/ios/50/000000/user-male-circle.png" alt="Profile" id="profile-icon">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Feed Section -->
+        <div class="feed">
+            <!-- Stories -->
+            <div class="stories">
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user1</div>
+                </div>
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user2</div>
+                </div>
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user3</div>
+                </div>
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user4</div>
+                </div>
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user5</div>
+                </div>
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/6.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user6</div>
+                </div>
+                <div class="story">
+                    <div class="story-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/7.jpg" alt="User">
+                    </div>
+                    <div class="story-username">user7</div>
+                </div>
+            </div>
+
+            <!-- Posts -->
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://randomuser.me/api/portraits/women/8.jpg" alt="User" class="post-avatar">
+                    <div class="post-username">traveler123</div>
+                    <div class="post-more">...</div>
+                </div>
+                <img src="https://source.unsplash.com/random/600x600/?nature" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <img src="https://img.icons8.com/ios/50/000000/hearts.png" alt="Like">
+                    <img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Comment">
+                    <img src="https://img.icons8.com/ios/50/000000/paper-plane.png" alt="Share">
+                    <div style="flex: 1;"></div>
+                    <img src="https://img.icons8.com/ios/50/000000/bookmark-ribbon.png" alt="Save">
+                </div>
+                <div class="post-likes">1,234 likes</div>
+                <div class="post-caption">
+                    <span class="post-caption-username">traveler123</span>
+                    Beautiful day in the mountains! #nature #adventure
+                </div>
+                <div class="post-comments">View all 56 comments</div>
+                <div class="post-time">2 HOURS AGO</div>
+                <div class="post-add-comment">
+                    <input type="text" placeholder="Add a comment...">
+                    <button disabled>Post</button>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://randomuser.me/api/portraits/men/9.jpg" alt="User" class="post-avatar">
+                    <div class="post-username">foodlover</div>
+                    <div class="post-more">...</div>
+                </div>
+                <img src="https://source.unsplash.com/random/600x600/?food" alt="Post" class="post-image">
+                <div class="post-actions">
+                    <img src="https://img.icons8.com/ios/50/000000/hearts.png" alt="Like">
+                    <img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Comment">
+                    <img src="https://img.icons8.com/ios/50/000000/paper-plane.png" alt="Share">
+                    <div style="flex: 1;"></div>
+                    <img src="https://img.icons8.com/ios/50/000000/bookmark-ribbon.png" alt="Save">
+                </div>
+                <div class="post-likes">892 likes</div>
+                <div class="post-caption">
+                    <span class="post-caption-username">foodlover</span>
+                    Homemade pasta for dinner tonight! #foodie #homecooking
+                </div>
+                <div class="post-comments">View all 23 comments</div>
+                <div class="post-time">5 HOURS AGO</div>
+                <div class="post-add-comment">
+                    <input type="text" placeholder="Add a comment...">
+                    <button disabled>Post</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="user-profile">
+                <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="User" class="user-avatar">
+                <div class="user-info">
+                    <div class="username">your_username</div>
+                    <div class="name">Your Name</div>
+                </div>
+                <div class="switch">Switch</div>
+            </div>
+
+            <div class="suggestions">
+                <div class="suggestions-header">
+                    <div class="suggestions-title">Suggestions For You</div>
+                    <div class="see-all">See All</div>
+                </div>
+
+                <div class="suggestion">
+                    <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="User" class="suggestion-avatar">
+                    <div class="suggestion-info">
+                        <div class="suggestion-username">artist123</div>
+                        <div class="suggestion-status">Followed by user1 + 3 more</div>
+                    </div>
+                    <div class="follow">Follow</div>
+                </div>
+
+                <div class="suggestion">
+                    <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="User" class="suggestion-avatar">
+                    <div class="suggestion-info">
+                        <div class="suggestion-username">photographer</div>
+                        <div class="suggestion-status">New to Instagram</div>
+                    </div>
+                    <div class="follow">Follow</div>
+                </div>
+
+                <div class="suggestion">
+                    <img src="https://randomuser.me/api/portraits/women/13.jpg" alt="User" class="suggestion-avatar">
+                    <div class="suggestion-info">
+                        <div class="suggestion-username">travel_addict</div>
+                        <div class="suggestion-status">Followed by user2 + 7 more</div>
+                    </div>
+                    <div class="follow">Follow</div>
+                </div>
+
+                <div class="suggestion">
+                    <img src="https://randomuser.me/api/portraits/men/14.jpg" alt="User" class="suggestion-avatar">
+                    <div class="suggestion-info">
+                        <div class="suggestion-username">fitness_guru</div>
+                        <div class="suggestion-status">Followed by user3</div>
+                    </div>
+                    <div class="follow">Follow</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-links">
+                    <div class="footer-link">About</div>
+                    <div class="footer-link">Help</div>
+                    <div class="footer-link">Press</div>
+                    <div class="footer-link">API</div>
+                    <div class="footer-link">Jobs</div>
+                    <div class="footer-link">Privacy</div>
+                    <div class="footer-link">Terms</div>
+                    <div class="footer-link">Locations</div>
+                    <div class="footer-link">Top Accounts</div>
+                    <div class="footer-link">Hashtags</div>
+                    <div class="footer-link">Language</div>
+                </div>
+                <div>© 2023 INSTACLONE FROM META</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Signup Modal -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="auth-switch">
+                <span class="active" id="login-tab">Log In</span>
+                <span id="signup-tab">Sign Up</span>
+            </div>
+            <div class="auth-form" id="login-form">
+                <input type="text" placeholder="Phone number, username, or email">
+                <input type="password" placeholder="Password">
+                <button id="login-button">Log In</button>
+                <div class="auth-divider">OR</div>
+                <div class="facebook-login">Log in with Facebook</div>
+                <div class="forgot-password">Forgot password?</div>
+            </div>
+            <div class="auth-form" id="signup-form" style="display: none;">
+                <input type="text" placeholder="Mobile Number or Email">
+                <input type="text" placeholder="Full Name">
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                <button id="signup-button">Sign Up</button>
+                <div class="auth-divider">OR</div>
+                <div class="facebook-login">Sign up with Facebook</div>
+                <div class="signup-text">
+                    By signing up, you agree to our <strong>Terms</strong>, <strong>Privacy Policy</strong> and <strong>Cookies Policy</strong>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages Modal -->
+    <div class="messages-modal" id="messages-modal">
+        <div class="messages-content">
+            <div class="messages-header">
+                <div class="messages-title">Messages</div>
+                <div class="close-messages">✕</div>
+            </div>
+            <div class="messages-list">
+                <div class="message-item" onclick="openChat('user1')">
+                    <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="User" class="message-avatar">
+                    <div class="message-info">
+                        <div class="message-username">user1</div>
+                        <div class="message-preview">Hey, how are you?</div>
+                    </div>
+                    <div class="message-time">2h</div>
+                </div>
+                <div class="message-item" onclick="openChat('user2')">
+                    <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="User" class="message-avatar">
+                    <div class="message-info">
+                        <div class="message-username">user2</div>
+                        <div class="message-preview">Check out this photo!</div>
+                    </div>
+                    <div class="message-time">5h</div>
+                </div>
+                <div class="message-item" onclick="openChat('user3')">
+                    <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="User" class="message-avatar">
+                    <div class="message-info">
+                        <div class="message-username">user3</div>
+                        <div class="message-preview">Thanks for the follow!</div>
+                    </div>
+                    <div class="message-time">1d</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chat-modal">
+        <div class="chat-content">
+            <div class="chat-header">
+                <div class="chat-back" onclick="backToMessages()">←</div>
+                <img src="" alt="User" class="chat-avatar" id="chat-avatar">
+                <div class="chat-username" id="chat-username">username</div>
+                <div class="chat-options">⋮</div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Message..." id="chat-input">
+                <button class="chat-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="feedback-modal" id="feedback-modal">
+        <div class="feedback-content">
+            <div class="feedback-header">
+                <div class="feedback-title">Send Feedback</div>
+            </div>
+            <div class="feedback-form">
+                <textarea placeholder="Please share your feedback with us..."></textarea>
+                <div class="feedback-buttons">
+                    <button class="feedback-cancel" onclick="closeFeedbackModal()">Cancel</button>
+                    <button class="feedback-submit" onclick="submitFeedback()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in (in a real app, this would be handled by backend)
+        const isLoggedIn = false;
+
+        // Show auth modal if not logged in
+        if (!isLoggedIn) {
+            document.getElementById('auth-modal').style.display = 'flex';
+        }
+
+        // Toggle between login and signup forms
+        document.getElementById('login-tab').addEventListener('click', function() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('signup-tab').classList.remove('active');
+        });
+
+        document.getElementById('signup-tab').addEventListener('click', function() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('signup-tab').classList.add('active');
+        });
+
+        // Enable/disable login button based on input
+        const loginInputs = document.querySelectorAll('#login-form input');
+        const loginButton = document.getElementById('login-button');
+
+        loginInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const allFilled = Array.from(loginInputs).every(input => input.value.trim() !== '');
+                loginButton.disabled = !allFilled;
+            });
+        });
+
+        // Enable/disable signup button based on input
+        const signupInputs = document.querySelectorAll('#signup-form input');
+        const signupButton = document.getElementById('signup-button');
+
+        signupInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const allFilled = Array.from(signupInputs).every(input => input.value.trim() !== '');
+                signupButton.disabled = !allFilled;
+            });
+        });
+
+        // Login functionality
+        document.getElementById('login-button').addEventListener('click', function() {
+            // In a real app, this would validate credentials with backend
+            alert('Login successful!');
+            document.getElementById('auth-modal').style.display = 'none';
+            isLoggedIn = true;
+        });
+
+        // Signup functionality
+        document.getElementById('signup-button').addEventListener('click', function() {
+            // In a real app, this would create a new user account
+            alert('Account created successfully! Please log in.');
+            document.getElementById('login-tab').click();
+        });
+
+        // Messages modal
+        document.getElementById('messages-icon').addEventListener('click', function() {
+            if (!isLoggedIn) {
+                document.getElementById('auth-modal').style.display = 'flex';
+            } else {
+                document.getElementById('messages-modal').style.display = 'flex';
+            }
+        });
+
+        document.querySelector('.close-messages').addEventListener('click', function() {
+            document.getElementById('messages-modal').style.display = 'none';
+        });
+
+        //
+        </script>
+        </body>
+        </html>
